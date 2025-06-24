@@ -91,7 +91,7 @@ IDS_NetProtector/
 ├── src/
 │   ├── main/
 │   │   ├── java/
-│   │   │   └── com/NetProtector/idsnetprotector/
+│   │   │   └── com/NetProtector/
 │   │   │       ├── controllers/     # JavaFX Controllers
 │   │   │       ├── models/          # Data Models
 │   │   │       ├── services/        # Business Logic
