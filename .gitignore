@@ -1,0 +1,18 @@
+# Configuration files with sensitive data
+src/main/resources/notification.properties
+*.properties
+!*_placeholder.properties
+!*_template.properties
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Build artifacts
+target/
+*.jar
+
+# Logs
+*.log
+logs/

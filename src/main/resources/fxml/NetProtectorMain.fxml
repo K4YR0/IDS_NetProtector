@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.NetProtector.Controllers.NetProtectorMainController" styleClass="main-container">
+    <!-- Left Sidebar Navigation -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="250" minWidth="200" maxWidth="300">
+            <children>
+                <!-- Logo/Title Section -->
+                <VBox styleClass="sidebar-header" alignment="CENTER">
+                    <padding>
+                        <Insets top="20" bottom="20" left="15" right="15" />
+                    </padding>
+                    <children>
+                        <Label text="⚡ NetProtector" styleClass="sidebar-title">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                        <Label text="Network Security Monitor" styleClass="sidebar-subtitle" />
+                    </children>
+                </VBox>
+                
+                <!-- Navigation Menu -->
+                <VBox styleClass="nav-menu" VBox.vgrow="ALWAYS" spacing="8">
+                    <padding>
+                        <Insets top="20" bottom="20" left="15" right="15" />
+                    </padding>
+                    <children>
+                        <Button fx:id="navDashboardBtn" text="🏠 Dashboard" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity" onAction="#showDashboard" />
+                        <Button fx:id="navMonitoringBtn" text="📡 Monitoring" styleClass="nav-btn" maxWidth="Infinity" onAction="#showMonitoring" />
+                        <Button fx:id="navAlertsBtn" text="🚨 Alerts" styleClass="nav-btn" maxWidth="Infinity" onAction="#showAlerts" />
+                        <Button fx:id="navStatisticsBtn" text="📊 Statistics" styleClass="nav-btn" maxWidth="Infinity" onAction="#showStatistics" />
+                        <Button fx:id="navSettingsBtn" text="⚙️ Settings" styleClass="nav-btn" maxWidth="Infinity" onAction="#showSettings" />
+                        
+                        <!-- Spacer -->
+                        <Region VBox.vgrow="ALWAYS" />
+                        
+                        <!-- Exit Button -->
+                        <Button fx:id="navExitBtn" text="🚪 Exit Application" styleClass="nav-btn, btn-danger" maxWidth="Infinity" onAction="#exitApplication" />
+                        
+                        <!-- Status Section -->
+                        <VBox styleClass="status-section" spacing="15">
+                            <padding>
+                                <Insets top="20" bottom="15" left="15" right="15" />
+                            </padding>
+                            <children>
+                                <Label text="🔥 System Status" styleClass="status-header" />
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label fx:id="captureStatusIcon" text="🔴" styleClass="status-icon-stopped" />
+                                        <Label text="Capture" styleClass="status-text" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label fx:id="detectionStatusIcon" text="🔴" styleClass="status-icon-stopped" />
+                                        <Label text="Detection" styleClass="status-text" />
+                                    </children>
+                                </HBox>
+                                <Label fx:id="alertCountBadge" text="0 Alerts" styleClass="alert-badge" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </left>
+    
+    <!-- Main Content Area -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <children>
+                <!-- Dashboard View -->
+                <VBox fx:id="dashboardView" styleClass="view-panel" spacing="25">
+                    <padding>
+                        <Insets top="40" right="40" bottom="40" left="40" />
+                    </padding>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="20">
+                            <children>
+                                <Label text="🚀 Dashboard Overview" styleClass="page-title">
+                                    <font>
+                                        <Font name="System Bold" size="32.0" />
+                                    </font>
+                                </Label>
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="timestampLabel" styleClass="status-text" />
+                            </children>
+                        </HBox>
+                        
+                        <!-- Stats Cards Row -->
+                        <HBox spacing="25" alignment="CENTER">
+                            <children>
+                                <!-- Packets Card -->
+                                <VBox styleClass="stat-card, card-blue" spacing="15" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets top="25" right="25" bottom="25" left="25" />
+                                    </padding>
+                                    <children>
+                                        <Label text="📦 Packets Captured" styleClass="card-label" />
+                                        <Label fx:id="packetCountLabel" text="0" styleClass="card-value" />
+                                    </children>
+                                </VBox>
+                                
+                                <!-- Alerts Card -->
+                                <VBox styleClass="stat-card, card-red" spacing="15" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets top="25" right="25" bottom="25" left="25" />
+                                    </padding>
+                                    <children>
+                                        <Label text="⚠️ Security Alerts" styleClass="card-label" />
+                                        <Label fx:id="alertCountLabel" text="0" styleClass="card-value" />
+                                    </children>
+                                </VBox>
+                                
+                                <!-- Performance Card -->
+                                <VBox styleClass="stat-card, card-green" spacing="15" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets top="25" right="25" bottom="25" left="25" />
+                                    </padding>
+                                    <children>
+                                        <Label fx:id="performanceLabel" text="📊 Performance: Excellent" styleClass="card-label" />
+                                        <ProgressBar fx:id="performanceBar" progress="1.0" styleClass="performance-bar" prefHeight="20" maxWidth="Infinity" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        
+                        <!-- Charts Section -->
+                        <HBox spacing="25" VBox.vgrow="ALWAYS">
+                            <children>
+                                <!-- Packet Rate Chart -->
+                                <VBox styleClass="chart-card" spacing="20" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets top="25" right="25" bottom="25" left="25" />
+                                    </padding>
+                                    <children>
+                                        <Label text="📈 Packet Rate Monitor" styleClass="chart-title" />
+                                        <LineChart fx:id="packetRateChart" VBox.vgrow="ALWAYS">
+                                            <xAxis>
+                                                <CategoryAxis fx:id="packetRateXAxis" side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis fx:id="packetRateYAxis" side="LEFT" />
+                                            </yAxis>
+                                        </LineChart>
+                                    </children>
+                                </VBox>
+                                
+                                <!-- Protocol Distribution -->
+                                <VBox styleClass="chart-card" spacing="20" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets top="25" right="25" bottom="25" left="25" />
+                                    </padding>
+                                    <children>
+                                        <Label text="🌐 Protocol Distribution" styleClass="chart-title" />
+                                        <PieChart fx:id="protocolDistributionChart" styleClass="protocol-pie-chart" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                
+                <!-- Monitoring View -->
+                <VBox fx:id="monitoringView" styleClass="view-panel" spacing="25" visible="false">
+                    <padding>
+                        <Insets top="40" right="40" bottom="40" left="40" />
+                    </padding>
+                    <children>
+                        <Label text="📡 Network Monitoring" styleClass="page-title">
+                            <font>
+                                <Font name="System Bold" size="32.0" />
+                            </font>
+                        </Label>
+                        
+                        <!-- Interface Selection -->
+                        <VBox styleClass="control-card" spacing="20">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25" />
+                            </padding>
+                            <children>
+                                <Label text="🔌 Network Interface Selection" styleClass="section-title" />
+                                <HBox alignment="CENTER_LEFT" spacing="20">
+                                    <children>
+                                        <ListView fx:id="interfaceListView" styleClass="interface-list" prefHeight="180" HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="refreshButton" onAction="#refreshInterfaces" text="🔄 Refresh" styleClass="action-btn, btn-secondary" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        
+                        <!-- Control Buttons -->
+                        <HBox spacing="20" alignment="CENTER">
+                            <children>
+                                <Button fx:id="startCaptureButton" onAction="#startCapture" text="▶️ Start Capture" styleClass="action-btn, btn-success" />
+                                <Button fx:id="stopCaptureButton" onAction="#stopCapture" text="⏹️ Stop Capture" styleClass="action-btn, btn-danger" />
+                                <Button fx:id="startDetectionButton" onAction="#startDetection" text="🔍 Start Detection" styleClass="action-btn, btn-warning" />
+                                <Button fx:id="stopDetectionButton" onAction="#stopDetection" text="🛑 Stop Detection" styleClass="action-btn, btn-danger" />
+                            </children>
+                        </HBox>
+                        
+                        <!-- Filter Configuration -->
+                        <VBox styleClass="control-card" spacing="20">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25" />
+                            </padding>
+                            <children>
+                                <Label text="🔍 Packet Filter Configuration" styleClass="section-title" />
+                                <HBox alignment="CENTER_LEFT" spacing="15">
+                                    <children>
+                                        <ComboBox fx:id="quickFilterComboBox" styleClass="combo-box" prefWidth="200" />
+                                        <Button fx:id="applyQuickFilterButton" text="Apply Filter" styleClass="action-btn, btn-info" />
+                                        <TextField fx:id="filterTextField" promptText="Custom BPF filter..." styleClass="filter-field" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        
+                        <!-- Status Display -->
+                        <VBox styleClass="control-card" spacing="15">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25" />
+                            </padding>
+                            <children>
+                                <Label text="📊 System Status" styleClass="section-title" />
+                                <HBox spacing="30" alignment="CENTER_LEFT">
+                                    <children>
+                                        <VBox spacing="5">
+                                            <children>
+                                                <Label text="Capture Status:" styleClass="setting-label" />
+                                                <Label fx:id="captureStatusLabel" text="🔴 Stopped" styleClass="status-text" />
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="5">
+                                            <children>
+                                                <Label text="Detection Status:" styleClass="setting-label" />
+                                                <Label fx:id="detectionStatusLabel" text="🔴 Stopped" styleClass="status-text" />
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="5">
+                                            <children>
+                                                <Label text="Rule Count:" styleClass="setting-label" />
+                                                <Label fx:id="ruleCountLabel" text="0" styleClass="status-text" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <Label fx:id="statusLabel" text="🟢 Ready to monitor network traffic" styleClass="status-message" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+                
+                <!-- Alerts View -->
+                <VBox fx:id="alertsView" styleClass="view-panel" spacing="25" visible="false">
+                    <padding>
+                        <Insets top="40" right="40" bottom="40" left="40" />
+                    </padding>
+                    <children>
+                        <Label text="🚨 Security Alerts" styleClass="page-title">
+                            <font>
+                                <Font name="System Bold" size="32.0" />
+                            </font>
+                        </Label>
+                        
+                        <!-- Search and Controls -->
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <children>
+                                <TextField fx:id="alertSearchField" promptText="🔍 Search alerts..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="clearSearchButton" text="❌ Clear" styleClass="action-btn, btn-secondary" onAction="#clearSearch" />
+                                <Button fx:id="clearAlertsButton" onAction="#clearAlerts" text="🗑️ Clear All" styleClass="action-btn, btn-danger" />
+                                <Button fx:id="generatePdfReportButton" onAction="#handleGeneratePdfReport" text="📄 PDF Report" styleClass="action-btn, btn-info" />
+                                <Button fx:id="generateCsvReportButton" onAction="#handleGenerateCsvReport" text="📊 CSV Report" styleClass="action-btn, btn-primary" />
+                            </children>
+                        </HBox>
+                        
+                        <!-- Alerts Table -->
+                        <TableView fx:id="alertTableView" styleClass="alerts-table" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="alertTimeColumn" prefWidth="120.0" text="⏰ Time" />
+                                <TableColumn fx:id="alertTitleColumn" prefWidth="180.0" text="📝 Alert Title" />
+                                <TableColumn fx:id="alertSeverityColumn" prefWidth="100.0" text="⚠️ Severity" />
+                                <TableColumn fx:id="alertSourceColumn" prefWidth="140.0" text="📍 Source IP" />
+                                <TableColumn fx:id="alertDestColumn" prefWidth="140.0" text="🎯 Dest IP" />
+                                <TableColumn fx:id="alertProtocolColumn" prefWidth="80.0" text="🌐 Protocol" />
+                                <TableColumn fx:id="alertPortColumn" prefWidth="80.0" text="🔌 Port" />
+                                <TableColumn fx:id="alertDescColumn" prefWidth="200.0" text="📋 Description" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+                
+                <!-- Statistics View -->
+                <VBox fx:id="statisticsView" styleClass="view-panel" spacing="25" visible="false">
+                    <padding>
+                        <Insets top="40" right="40" bottom="40" left="40" />
+                    </padding>
+                    <children>
+                        <Label text="📊 Network Statistics" styleClass="page-title">
+                            <font>
+                                <Font name="System Bold" size="32.0" />
+                            </font>
+                        </Label>
+                        
+                        <!-- Alert Trend Chart -->
+                        <VBox styleClass="chart-card" spacing="20" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25" />
+                            </padding>
+                            <children>
+                                <Label text="📈 Alert Trend Analysis" styleClass="chart-title" />
+                                <AreaChart fx:id="alertTrendChart" VBox.vgrow="ALWAYS">
+                                    <xAxis>
+                                        <CategoryAxis fx:id="alertTrendXAxis" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis fx:id="alertTrendYAxis" side="LEFT" />
+                                    </yAxis>
+                                </AreaChart>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+                
+                <!-- Settings View -->
+                <VBox fx:id="settingsView" styleClass="view-panel" spacing="25" visible="false">
+                    <padding>
+                        <Insets top="40" right="40" bottom="40" left="40" />
+                    </padding>
+                    <children>
+                        <Label text="⚙️ Application Settings" styleClass="page-title">
+                            <font>
+                                <Font name="System Bold" size="32.0" />
+                            </font>
+                        </Label>
+                        
+                        <fx:include fx:id="notificationSettingsView" source="NotificationSettings.fxml" />
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

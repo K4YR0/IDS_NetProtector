@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.NetProtector.Controllers.NotificationSettingsController" styleClass="notification-container">
+   <children>
+      <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="main-scroll">
+         <content>
+            <VBox spacing="25.0" styleClass="content-wrapper">
+               <children>
+                  <VBox spacing="10.0" styleClass="header-card">
+                     <children>
+                        <Label text="Notification Settings" styleClass="page-title">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label text="Configure your notification preferences and test settings" styleClass="page-subtitle">
+                           <font>
+                              <Font name="System" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+                  
+                  <Separator styleClass="section-divider" />
+                  
+                  <VBox spacing="20.0" styleClass="settings-card">
+                     <children>
+                        <Label text="Notification Types" styleClass="card-title">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <GridPane hgap="20.0" vgap="20.0" styleClass="settings-grid">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="250.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="500.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <VBox spacing="5.0" GridPane.rowIndex="0">
+                                 <children>
+                                    <Label text="Desktop Notifications" styleClass="setting-label">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Show system notifications" styleClass="setting-description" />
+                                 </children>
+                              </VBox>
+                              <CheckBox fx:id="desktopNotificationsCheckBox" mnemonicParsing="false" text="Enable Desktop Notifications" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="setting-checkbox" />
+                              
+                              <VBox spacing="5.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="Email Notifications" styleClass="setting-label">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Send alerts via email" styleClass="setting-description" />
+                                 </children>
+                              </VBox>
+                              <CheckBox fx:id="emailNotificationsCheckBox" mnemonicParsing="false" text="Enable Email Notifications" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="setting-checkbox" />
+                              
+                              <VBox spacing="5.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <Label text="Recipient Email" styleClass="setting-label">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Where to send notifications" styleClass="setting-description" />
+                                 </children>
+                              </VBox>
+                              <TextField fx:id="emailRecipientField" promptText="admin@example.com" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="email-field" />
+                              
+                              <Label fx:id="emailConfigStatusLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" wrapText="true" styleClass="config-status" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+                  
+                  <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="action-bar">
+                     <children>
+                        <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#handleSaveSettings" text="💾 Save Settings" styleClass="save-btn" />
+                        <Label fx:id="saveStatusLabel" styleClass="status-message" />
+                        <Region HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  
+                  <Separator styleClass="section-divider" />
+                  
+                  <VBox spacing="15.0" styleClass="test-card">
+                     <children>
+                        <Label text="Test Notifications" styleClass="card-title">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="test-controls">
+                           <children>
+                              <Label text="Select Severity:" styleClass="test-label" />
+                              <ComboBox fx:id="testSeverityComboBox" prefWidth="180.0" styleClass="severity-combo" />
+                              <Button fx:id="sendTestNotificationButton" mnemonicParsing="false" onAction="#handleSendTestNotification" text="Send Test" styleClass="test-btn" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+                  
+                  <VBox spacing="10.0" styleClass="status-card">
+                     <children>
+                        <Label text="Configuration Status" styleClass="card-title">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="notificationStatusLabel" wrapText="true" styleClass="status-summary" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
