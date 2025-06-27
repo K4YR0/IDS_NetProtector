@@ -203,10 +203,6 @@ git push origin feature/amazing-feature
 ```
 5. **Open a Pull Request**
 
-<a href="https://github.com/K4YR0/IDS_NetProtector/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=K4YR0/IDS_NetProtector" />
-</a>
-
 Made with ❤️ by the Open Source Community.
 
 -----
